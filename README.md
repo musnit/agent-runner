@@ -12,8 +12,10 @@ poetry install
 ```
 ## Config
 
- - Copy `agent_runner/example_config.py` to `agent_runner/config.py`
- - Modify it as desired
+ - Copy `agent_runner/example_config.py` to `agent_runner/config.py` for the agent configuration
+ - Copy .env.example to .env for secrets configuration
+ - Copy bot_config_example.json to bot_config.json for discord bot configuration
+ - Modify each as desired
 
 ## Running
 
@@ -30,4 +32,9 @@ poetry run celery -A agent_runner worker --loglevel=INFO
 Run Celery Beat (Triggers tasks on the task runner based on beat config):
 ```bash
 poetry run celery -A agent_runner beat
+```
+
+Run Discord Bot:
+```bash
+poetry run bot
 ```
