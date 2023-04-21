@@ -11,8 +11,12 @@ fastapi = "^0.95.1"
 uvicorn = "^0.21.1"
 celery = "^5.2.7"
 redis = "^4.5.4"
+langchain = "^0.0.145"
 
 [tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
 
 [build-system]
 requires = ["poetry-core"]
