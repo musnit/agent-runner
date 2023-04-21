@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "agent_runner"
+version = "0.1.0"
+description = ""
+authors = ["musnit <musnit@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.1"
+uvicorn = "^0.21.1"
+celery = "^5.2.7"
+redis = "^4.5.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "agent_runner.run_web_server:main"
