@@ -3,3 +3,4 @@ celerybeat-schedule
 __pycache__/
 agent_runner/__pycache__/
 agent_runner/config.py
+.env

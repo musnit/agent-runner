@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Json
 from typing import Any, Optional
 from .config import agent_config
 
@@ -12,7 +12,11 @@ class AgentRequest(BaseModel):
     input: Optional[Any]
 
 
-def run(request: AgentRequest):
+class AgentResponse(BaseModel):
+    result: Json
+
+
+def run(request: AgentRequest) -> AgentResponse:
     agent_type = agent_config.get(request.name)
     if not agent_type:
         raise InvalidAgentError("Invalid agent name")
