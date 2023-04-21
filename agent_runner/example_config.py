@@ -1,5 +1,7 @@
+from example_agents.adder_agent import AdderAgent
 from celery.schedules import crontab
-from .agents.agents import AgentRequest
+
+agent_config = {"adder": AdderAgent}
 
 task_config = {
     "run-adder-agent-every-5-seconds": {

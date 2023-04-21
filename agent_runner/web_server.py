@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel, ValidationError, Json
-from .agents.agents import run, AgentRequest, InvalidAgentError
+from .runner import run, AgentRequest, InvalidAgentError
 
 server = FastAPI()
 

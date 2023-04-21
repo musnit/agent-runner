@@ -10,6 +10,10 @@ redis-server
 ```bash
 poetry install
 ```
+## Config
+
+ - Copy `agent_runner/example_config.py` to `agent_runner/config.py`
+ - Modify it as desired
 
 ## Running
 

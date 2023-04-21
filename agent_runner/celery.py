@@ -1,5 +1,5 @@
 from celery import Celery
-from .task_config import task_config
+from .config import task_config
 
 celery = Celery(
     "agent_runner", broker="redis://localhost:6379/0", include=["agent_runner.tasks"]

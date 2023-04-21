@@ -1,5 +1,5 @@
 from .celery import celery
-from .agents.agents import run, AgentRequest
+from .runner import run, AgentRequest
 
 
 @celery.task

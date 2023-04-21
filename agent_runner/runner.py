@@ -1,6 +1,6 @@
-from .adder_agent import AdderAgent
 from pydantic import BaseModel
 from typing import Any, Optional
+from .config import agent_config
 
 
 class InvalidAgentError(Exception):
@@ -12,11 +12,8 @@ class AgentRequest(BaseModel):
     input: Optional[Any]
 
 
-agents = {"adder": AdderAgent}
-
-
 def run(request: AgentRequest):
-    agent_type = agents.get(request.name)
+    agent_type = agent_config.get(request.name)
     if not agent_type:
         raise InvalidAgentError("Invalid agent name")
     agent = agent_type()
