@@ -1,17 +1,12 @@
 from langchain.tools import BaseTool
+from typing import Type
+from pydantic import BaseModel
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-
-app_description = "Spinamp, a music app"
-repo_descriptions = """
- - spindexer-internal is the open source, decentralized indexer
- - spinamp-backend is the backend for the app
- - spinamp is the frontend for the app
-"""
 
 system_template_string = """
 I want you to act as a tech writer for {app_description}.
@@ -35,20 +30,30 @@ Respond with only the summary list, no other context.
 """
 
 
+class SummarizeCommitsInput(BaseModel):
+    commits_string: str
+    app_description: str
+    repo_descriptions: str
+
+
 class SummarizeCommits(BaseTool):
     name = "SummarizeCommits"
     description = (
         "use this to summarize a batch of github commits from one or multiple repos"
     )
+    args_schema: Type[BaseModel] = SummarizeCommitsInput
 
-    def _run(self, commits_string: str) -> str:
+    def _run(
+        self, commits_string: str, app_description: str, repo_descriptions: str
+    ) -> str:
         """Summarizes a batch of github commits from one or multiple repos"""
 
         system_template = SystemMessagePromptTemplate.from_template(
             system_template_string
         )
         system_prompt = system_template.format(
-            app_description=app_description, repo_descriptions=repo_descriptions
+            app_description=app_description,
+            repo_descriptions=repo_descriptions,
         )
         human_template = "{commits_string}"
         human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)

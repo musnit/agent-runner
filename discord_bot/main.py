@@ -25,7 +25,7 @@ with open("bot_config.json", "r") as file:
 
 @tree.command(
     name="commit_summary",
-    description="Get a summary of the last 2 weeks of Spinamp github commits",
+    description="Get a summary of the last 2 weeks of github commits",
     guild=discord.Object(id=951969750806855740),
 )
 async def commit_summary(interaction):

@@ -3,15 +3,24 @@ from pydantic import BaseModel
 from agent_runner.agent import Agent
 from typing import List, Dict
 from dotenv import load_dotenv
-from example_tools.commit_summarizer.summarize_commits import SummarizeCommits
+from example_tools.commit_summarizer.summarize_commits import (
+    SummarizeCommits,
+    SummarizeCommitsInput,
+)
 from example_tools.github_commits.github_commits import GithubRecentCommits
 
 load_dotenv()
 
 
+class ChangeLogInput(BaseModel):
+    app_description: str
+    repo_descriptions: str
+    repo_list: List[str]
+
+
 class ChangelogAgent(Agent):
     class Input(BaseModel):
-        input: List[str]
+        input: ChangeLogInput
 
     class Output(BaseModel):
         commit_messages: Dict[str, List[str]]
@@ -22,10 +31,16 @@ class ChangelogAgent(Agent):
         github_recent_commits_tool.github_token = github_token
         all_repo_commit_messages = {}
 
-        for repo_url in input.input:
+        for repo_url in input.input.repo_list:
             repo_commit_messages = github_recent_commits_tool(repo_url)
             all_repo_commit_messages[repo_url] = repo_commit_messages
 
         summarize_commits = SummarizeCommits()
 
-        return summarize_commits(str(all_repo_commit_messages))
+        query = {
+            "commits_string": str(all_repo_commit_messages),
+            "app_description": input.input.app_description,
+            "repo_descriptions": input.input.repo_descriptions,
+        }
+
+        return summarize_commits(query)
