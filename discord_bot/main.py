@@ -8,6 +8,7 @@ import json
 load_dotenv()
 
 DISCORD_BOT_TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+DISCORD_GUILD_ID = os.environ["DISCORD_GUILD_ID"]
 
 # This example requires the 'message_content' intent.
 intents = discord.Intents.default()
@@ -47,7 +48,7 @@ async def commit_summary(interaction):
 
 @client.event
 async def on_ready():
-    await tree.sync(guild=discord.Object(id=951969750806855740))
+    await tree.sync(guild=discord.Object(id=DISCORD_GUILD_ID))
     print("Ready!")
 
 

@@ -1,5 +1,5 @@
 import os
-from pydantic import BaseModel, validator
+from pydantic import BaseModel
 from agent_runner.agent import Agent
 from typing import List, Dict
 from dotenv import load_dotenv
